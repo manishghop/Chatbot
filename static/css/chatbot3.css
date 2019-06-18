@@ -1,0 +1,215 @@
+/*#chat_img{
+    border-radius: 50%;
+    width: 75px;
+    height: 105px;
+    border: 1px solid;
+    cursor: pointer;
+    position: fixed;
+    top:530px;
+    right:50px;
+}
+#chat_img:hover{
+    box-shadow: 5px 5px cyan;
+    transform: scale(1.3)
+}
+.close{
+cursor: pointer;
+position: relative;
+left: 400px;
+top:-30px;
+width: 30px;
+height: 30px;
+}
+#chatbot{
+    display: none;
+    width:450px;
+    height: 450px;
+    background-color: white;
+    border: 2px solid cyan;
+    border-radius: 3%;
+    position:fixed;
+    top:50px;
+    right:50px;
+    box-shadow: 2px 2px 2px 2px cyan;
+}
+#d1{
+border-bottom: 1px solid black;
+padding-bottom: -20px;
+height: 60px;
+margin-top: -20px;
+}
+p{
+    text-transform: uppercase;
+    color: blue;
+    position: relative;
+    left: 80px;
+    top:15px;
+    font-size: 20.6px;
+}
+.textbox{
+    background-color: white;
+    border-style:none;
+    height: 30px;
+    position: relative;
+    top:4px;
+    left:40px;
+    width:350px;
+    outline: none;
+}
+#chat{
+    height: 350px;
+    overflow-y: scroll;
+}
+#textmessage{
+    border-top:1px solid black;
+    height:38px;
+}
+.send_btn{
+    position: relative;
+    left:50px;
+    top:8px;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.bot_msg{
+    display: inline-block;
+    height: 30px;
+    background-color: #DF017C;
+    color: white;
+    position: relative;
+    top:20px;
+    text-align: center;
+    padding-top: 10px;
+}
+.bot_img{
+    display: inline-block;
+    height: 30px;
+    border-radius: 50%;
+}
+@keyframes arrow{
+    0% {left:1350px;}
+    50% {left:1358px;}
+    100%{left:1350px;}
+}
+.arrow{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 500px;
+    left: 1350px;
+    animation: arrow 1s infinite
+}
+*/
+#chat_img{
+    border-radius: 50%;
+    width: 75px;
+    height: 105px;
+    border: 1px solid;
+    cursor: pointer;
+    position: fixed;
+    top:530px;
+    right:50px;
+}
+#chat_img:hover{
+    box-shadow: 5px 5px cyan;
+    transform: scale(1.3)
+}
+.close{
+cursor: pointer;
+position: relative;
+left: 400px;
+top:-30px;
+width: 30px;
+height: 30px;
+}
+#chatbot{
+    display: none;
+    width:450px;
+    height: 450px;
+    background-color: white;
+    border: 2px solid cyan;
+    border-radius: 3%;
+    position:fixed;
+    top:50px;
+    right:50px;
+    box-shadow: 2px 2px 2px 2px cyan;
+}
+#d1{
+border-bottom: 1px solid black;
+padding-bottom: -20px;
+height: 60px;
+margin-top: -20px;
+}
+p{
+    text-transform: uppercase;
+    color: blue;
+    position: relative;
+    left: 80px;
+    top:15px;
+    font-size: 20.6px;
+}
+.textbox{
+    background-color: white;
+    border-style:none;
+    height: 30px;
+    position: relative;
+    top:4px;
+    left:40px;
+    width:350px;
+    outline: none;
+}
+#chat{
+    height: 350px;
+    overflow-y: scroll;
+}
+#textmessage{
+    border-top:1px solid black;
+    height:38px;
+}
+.send_btn{
+    position: relative;
+    left:50px;
+    top:8px;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.bot_msg{
+    display: inline-block;
+    height: 30px;
+    background-color: #DF017C;
+    color: white;
+    position: relative;
+    top:20px;
+    text-align: center;
+    padding-top: 10px;
+}
+.bot_img{
+    display: inline-block;
+    height: 30px;
+    border-radius: 50%;
+}
+@keyframes arrow{
+    0% {left:1350px;}
+    50% {left:1358px;}
+    100%{left:1350px;}
+}
+.arrow{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 500px;
+    left: 1350px;
+    animation: arrow 1s infinite
+}
+.refresh{
+    position: relative;
+    left:320px;
+    top:-30px;
+    cursor: pointer;
+    width:30px;
+    height:30px;
+}

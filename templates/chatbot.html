@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chatapp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{% static 'node_modules/botui/build/botui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'node_modules/botui/build/botui-theme-default.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/chatbot3.css'%}" type="text/css">
+  </head>
+  <body>
+        <img src="{% static 'images/arrow.jpg'%}" class="arrow" id="arrow_id">
+        <img src="{% static 'images/chatty.jfif'%}" id="chat_img">
+        <div id="chatbot">
+            <div id="d1">
+                <p>Welcome to virtusa</p>
+                <ion-icon name="close" class="close" onclick="this.parentNode.parentNode.style.display='none'; document.getElementById('arrow_id').style.display='block'"></ion-icon>
+                <ion-icon name="refresh" class="refresh" ></ion-icon>
+            </div>
+            <div id="chat">
+                    <div id="my-botui-app">
+                            <bot-ui></bot-ui>
+                    </div>
+            </div>
+            <div id="textmessage">
+                    <form method="post" id="form">
+                        {% csrf_token %}
+                        <input class="textbox" id="textbox" type="text" placeholder="Type a message here ...">
+                        <ion-icon name="send" class="send_btn" id="send_btn" method="get" onclick="ex_func(event)"></ion-icon>
+                    </form>
+            </div>
+        </div>
+        <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+        <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+        <script src="{% static 'node_modules/botui/build/botui.min.js'%}"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+    var botui;
+        var init=0;
+    var s,res;
+    chatbot=document.getElementById('chatbot')
+    //clicking chating img
+    document.getElementById('chat_img').onclick = function(){
+        if(window.getComputedStyle(chatbot).display == 'none'){
+        chatbot.style.display='block';
+        document.getElementById('arrow_id').style.display='none';
+        if(init==0){
+            initialize()
+        }
+    }
+     else{
+        chatbot.style.display='none';
+        document.getElementById('arrow_id').style.display='block';
+    }
+}
+//onclick of enter or send button
+function ex_func(e){
+    s=document.getElementById('textbox').value
+    botui.message.human({
+        content:''+s,
+    })
+   document.getElementById('textbox').value=''
+}
+//on pressing enter key
+document.addEventListener('keypress',function(e){
+    if(e.keyCode==13){
+        ex_func(document.getElementById('textbox').value)
+    }
+})
+//initial message function
+function initialize(){
+   botui = new BotUI('my-botui-app')
+   console.log(botui)
+   botui.message.bot({
+       loading:true,
+       delay:1000,
+       content:'Hey user ! Welcome to Virtusa \n How can I help you '
+   })
+   init=1
+}
+//response to the user input
+$('#form').submit(send_data)
+$('#send_btn').click(send_data)
+//ajax call to django server on enter or button click
+function send_data(event){
+event.preventDefault()
+  $.ajax({
+      type:'POST',
+      url:'user/create',
+      data:{
+          text:''+s,
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+      },
+      dataType:'json',
+      success:output
+})
+}
+//ajax call on button click given by the bot
+function button_click(res){
+ $.ajax({
+      type:'POST',
+      url:'user/create',
+      data:{
+          text:''+res.value,
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+      },
+      dataType:'json',
+      success:output,
+  })
+}
+//onclicking refresh button
+$('.refresh').click(function(){
+    while(document.getElementById('chat').firstChild){
+    document.getElementById('chat').removeChild(document.getElementById('chat').firstChild)
+    }
+    document.getElementById('chat').insertAdjacentHTML('afterbegin','<div id="my-botui-app"></div>')
+    document.getElementById('my-botui-app').insertAdjacentHTML('afterbegin','<bot-ui></bot-ui>')
+    initialize()
+})
+function output(resp)
+{
+flag=0
+console.log(resp)
+if(resp.type == 0){
+console.log(resp.data)
+botui.message.bot({
+
+                    loading:true,
+                    delay:1000,
+                    content:resp.data
+            })
+}
+else if(resp.type==1){
+console.log(resp.data)
+botui.message.bot({
+                    loading:true,
+                    delay:1000,
+                    content:"select the field you want"
+            }).then(()=>{
+            a=Object.values(resp)
+            return botui.action.button({
+                addMessage:true,
+                action:a.map(function(i){return {text:i,value:i}})
+            })
+            }).then(res=>{
+            button_click(res)
+            })
+}
+}
+    </script>
+  </body>
+</html>
