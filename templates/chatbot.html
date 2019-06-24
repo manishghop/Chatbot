@@ -76,6 +76,7 @@ function initialize(){
    botui.message.bot({
        loading:true,
        delay:1000,
+       photo: '{% static 'images/chatty.jfif'%}',
        content:'Hey user ! Welcome to Virtusa \n How can I help you '
    })
    init=1
@@ -123,29 +124,30 @@ function output(resp)
 {
 flag=0
 console.log(resp)
-if(resp.type == 0){
 console.log(resp.data)
+if(resp.data.length==2){
 botui.message.bot({
 
                     loading:true,
+                    photo: '{% static 'images/chatty.jfif'%}',
                     delay:1000,
-                    content:resp.data
-            })
-}
-else if(resp.type==1){
-console.log(resp.data)
-botui.message.bot({
+                    content:resp.data[0]
+            }).then(function(){
+                botui.message.bot({
                     loading:true,
                     delay:1000,
-                    content:"select the field you want"
-            }).then(()=>{
-            a=Object.values(resp)
-            return botui.action.button({
-                addMessage:true,
-                action:a.map(function(i){return {text:i,value:i}})
+                    photo: '{% static 'images/chatty.jfif'%}',
+                    content:'[click here](resp.data[1])'
+                })
             })
-            }).then(res=>{
-            button_click(res)
+}
+else{
+botui.message.bot({
+
+                    loading:true,
+                    photo: '',
+                    delay:1000,
+                    content:resp.data
             })
 }
 }
